@@ -1,0 +1,9 @@
+.task_done {
+  text-decoration: line-through;
+  color: antiquewhite;
+}
+
+.task__switch {
+  display: inline-block;
+  margin-right: 15px;
+}
