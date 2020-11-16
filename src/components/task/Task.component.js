@@ -11,7 +11,7 @@ export class Task extends React.Component {
 
     return (
       <li className="task">
-        <label>
+        <label className="task-body">
           <input
             type="checkbox"
             className="task__switch"
@@ -20,6 +20,9 @@ export class Task extends React.Component {
           />
           {title}
         </label>
+        <div className="task__delete" onClick={() => this.props.taskDeleted()}>
+          <p>Delete</p>
+        </div>
       </li>
     );
   }
