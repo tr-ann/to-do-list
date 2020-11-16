@@ -3,7 +3,7 @@ import './Task.component.css';
 
 export class Task extends React.Component {
   render() {
-    const title = Number(this.props.task.isDone) ? (
+    const title = this.props.task.isDone ? (
       <span className="task_done">{this.props.task.title}</span>
     ) : (
       this.props.task.title
