@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '../button/Button.component';
 import './Task.component.css';
 
 export class Task extends React.Component {
@@ -20,9 +21,7 @@ export class Task extends React.Component {
           />
           {title}
         </label>
-        <div className="task__delete" onClick={() => this.props.taskDeleted()}>
-          <p>Delete</p>
-        </div>
+        <Button danger onClick={this.props.taskDeleted} title="Delete" />
       </li>
     );
   }

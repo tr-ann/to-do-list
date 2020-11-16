@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '../button/Button.component';
 import { Task } from '../task/Task.component';
 
 export class ToDoList extends React.Component {
@@ -32,25 +33,31 @@ export class ToDoList extends React.Component {
     this.setState({ tasks });
   };
 
-  taskDeleted = (i) => {
+  deleteTask = (i) => {
     const tasks = this.state.tasks.slice();
     tasks.splice(i, 1);
 
     this.setState({ tasks });
   };
 
+  addTask = () => {
+    // const tasks = this.state.tasks.slice();
+    console.log('create task');
+  };
+
   render() {
     return (
       <div>
         <h2>To Do List</h2>
-        <div className="to-do-list">
+        <Button success onClick={() => this.addTask()} title="Add" />
+        <div className="task-list">
           {this.state.tasks.map((item, index) => {
             return (
               <Task
                 key={item.id}
                 task={item}
                 taskChanged={() => this.taskStateChanged(index)}
-                taskDeleted={() => this.taskDeleted(index)}
+                taskDeleted={() => this.deleteTask(index)}
               />
             );
           })}

@@ -1,0 +1,40 @@
+.button {
+  color: white;
+  text-decoration: none;
+  background-color: inherit;
+  font-size: 0.8rem;
+  padding: 0 10px;
+  height: 1.5rem;
+  border: 1px solid;
+  border-radius: 10%;
+  margin: auto 5px;
+  transition: transform 0.1s;
+}
+
+.button:hover,
+.button:focus {
+  outline: none;
+  cursor: pointer;
+}
+
+.button:active {
+  transform: scale(0.95);
+}
+
+.button_danger {
+  border-color: rgb(161, 15, 15);
+}
+
+.button_danger:hover,
+.button_danger:focus {
+  color: rgb(161, 15, 15);
+}
+
+.button_success {
+  border-color: rgb(22, 134, 78);
+}
+
+.button_success:hover,
+.button_success:focus {
+  color: rgb(22, 134, 78);
+}
