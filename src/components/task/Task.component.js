@@ -1,5 +1,5 @@
 import React from 'react';
-import './task.component.css';
+import './Task.component.css';
 
 export class Task extends React.Component {
   render() {
