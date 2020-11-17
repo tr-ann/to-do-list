@@ -1,4 +1,4 @@
-import { ToDoList } from '../to-do-list/ToDoList.component';
+import { ToDoList } from './components/ToDoList/ToDoList';
 import './App.css';
 
 let tasks = [

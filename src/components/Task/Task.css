@@ -1,4 +1,5 @@
 .task {
+  list-style-type: none;
   display: flex;
   flex-flow: row nowrap;
 }

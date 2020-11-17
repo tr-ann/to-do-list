@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button } from '../button/Button.component';
-import './Task.component.css';
+import { Button } from '../Button/Button';
+import './Task.css';
 
 export class Task extends React.Component {
   render() {
