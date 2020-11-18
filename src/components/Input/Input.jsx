@@ -1,15 +1,16 @@
 import classNames from 'classnames';
 import './Input.css';
 
-export function Input(props) {
-  let inputClass = classNames('input', props.classNames);
+export const Input = ({ classNames: classes, placeholder, onChange, value }) => {
+  let inputClass = classNames('input', classes);
 
   return (
     <input
       type="text"
+      value={value}
       className={inputClass}
-      placeholder={props.placeholder}
-      onChange={(e) => props.onChanged(e)}
+      placeholder={placeholder}
+      onChange={onChange}
     />
   );
-}
+};

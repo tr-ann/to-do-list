@@ -1,28 +1,26 @@
 import React from 'react';
 import { Button } from '../Button/Button';
+import classNames from 'classnames';
 import './Task.css';
 
-export class Task extends React.Component {
-  render() {
-    const title = this.props.task.isDone ? (
-      <span className="task_done">{this.props.task.title}</span>
-    ) : (
-      this.props.task.title
-    );
+export const Task = ({ task: { id, title, isDone }, taskDeleted, taskChanged }) => {
+  const handleChange = () => {
+    taskChanged(id);
+  };
 
-    return (
-      <li className="task">
-        <label className="task-body">
-          <input
-            type="checkbox"
-            className="task__switch"
-            checked={this.props.task.isDone}
-            onChange={() => this.props.taskChanged()}
-          />
-          {title}
-        </label>
-        <Button danger onClick={this.props.taskDeleted} title="Delete" />
-      </li>
-    );
-  }
-}
+  const handleDelete = () => {
+    taskDeleted(id);
+  };
+
+  const titleClass = classNames({ task_done: isDone });
+
+  return (
+    <li className="task">
+      <label className="task-body">
+        <input type="checkbox" className="task__switch" checked={isDone} onChange={handleChange} />
+        <span className={titleClass}>{title}</span>
+      </label>
+      <Button danger onClick={handleDelete} title="Delete" />
+    </li>
+  );
+};

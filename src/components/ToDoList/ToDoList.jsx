@@ -15,8 +15,6 @@ export class ToDoList extends React.Component {
       { id: 4, title: 'task 4', isDone: false },
     ];
 
-    tasks.sort(this.sortByTaskState);
-
     this.state = {
       tasks,
       editedTask: '',
@@ -28,12 +26,12 @@ export class ToDoList extends React.Component {
     return Number(task1.isDone) - Number(task2.isDone);
   }
 
-  taskStateChanged = (i) => () => {
+  onTaskStateChange = (id) => {
     const { tasks } = this.state;
 
-    const updatedTasks = tasks.map((task, index) => {
-      if (index === i) {
-        task.isDone = !task.isDone;
+    const updatedTasks = tasks.map((task) => {
+      if (task.id === id) {
+        return { ...task, isDone: !task.isDone };
       }
       return task;
     });
@@ -43,9 +41,9 @@ export class ToDoList extends React.Component {
     this.setState({ tasks: updatedTasks });
   };
 
-  deleteTask = (i) => () => {
+  onTaskDelete = (id) => {
     const { tasks } = this.state;
-    const updatedTasks = tasks.filter((task, index) => index !== i);
+    const updatedTasks = tasks.filter(({ id: taskId }) => taskId !== id);
 
     this.setState({ tasks: updatedTasks });
   };
@@ -54,7 +52,7 @@ export class ToDoList extends React.Component {
     this.setState({ editedTask: e.target.value });
   };
 
-  addTask = () => {
+  onTaskCreate = () => {
     if (!this.state.editedTask) return;
 
     let { tasks, counter: id, editedTask } = this.state;
@@ -67,29 +65,36 @@ export class ToDoList extends React.Component {
     this.setState({
       tasks: [...tasks, createdTask],
       counter: ++id,
+      editedTask: '',
+    });
+  };
+
+  getTasksList = () => {
+    const { tasks } = this.state;
+
+    return tasks.map((item) => {
+      return (
+        <Task
+          key={item.id}
+          task={item}
+          taskChanged={this.onTaskStateChange}
+          taskDeleted={this.onTaskDelete}
+        />
+      );
     });
   };
 
   render() {
+    const { editedTask } = this.state;
+
     return (
       <div className="to-do-list">
         <h2 className="to-do-list__title">To Do List</h2>
         <div>
-          <Input placeholder="task title" onChanged={this.onTaskChange} />
-          <Button success onClick={this.addTask} title="Save" />
+          <Input placeholder="task title" onChange={this.onTaskChange} value={editedTask} />
+          <Button success onClick={this.onTaskCreate} title="Save" />
         </div>
-        <ul className="task-list">
-          {this.state.tasks.map((item, index) => {
-            return (
-              <Task
-                key={item.id}
-                task={item}
-                taskChanged={this.taskStateChanged(index)}
-                taskDeleted={this.deleteTask(index)}
-              />
-            );
-          })}
-        </ul>
+        <ul className="task-list">{this.getTasksList()}</ul>
       </div>
     );
   }

@@ -1,16 +1,16 @@
 import './Button.css';
 import classNames from 'classnames';
 
-export function Button(props) {
+export const Button = ({ success, warning, danger, onClick, title }) => {
   let classes = classNames('button', {
-    button_success: props.success,
-    button_warning: props.warning,
-    button_danger: props.danger,
+    button_success: success,
+    button_warning: warning,
+    button_danger: danger,
   });
 
   return (
-    <button className={classes} onClick={() => props.onClick()}>
-      {props.title}
+    <button className={classes} onClick={onClick}>
+      {title}
     </button>
   );
-}
+};
