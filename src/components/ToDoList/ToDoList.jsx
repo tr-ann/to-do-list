@@ -25,23 +25,29 @@ export class ToDoList extends React.Component {
   }
 
   sortByTaskState(task1, task2) {
-    return task1.isDone - task2.isDone;
+    return Number(task1.isDone) - Number(task2.isDone);
   }
 
   taskStateChanged = (i) => () => {
     const { tasks } = this.state;
-    tasks[i].isDone = !tasks[i].isDone;
 
-    tasks.sort(this.sortByTaskState);
+    const updatedTasks = tasks.map((task, index) => {
+      if (index === i) {
+        task.isDone = !task.isDone;
+      }
+      return task;
+    });
 
-    this.setState({ tasks });
+    updatedTasks.sort(this.sortByTaskState);
+
+    this.setState({ tasks: updatedTasks });
   };
 
   deleteTask = (i) => () => {
     const { tasks } = this.state;
-    tasks.splice(i, 1);
+    const updatedTasks = tasks.filter((task, index) => index !== i);
 
-    this.setState({ tasks });
+    this.setState({ tasks: updatedTasks });
   };
 
   onTaskChange = (e) => {
@@ -51,16 +57,15 @@ export class ToDoList extends React.Component {
   addTask = () => {
     if (!this.state.editedTask) return;
 
-    let { tasks, counter: id } = this.state;
-
-    tasks.push({
+    let { tasks, counter: id, editedTask } = this.state;
+    const createdTask = {
       id,
-      title: this.state.editedTask,
+      title: editedTask,
       isDone: false,
-    });
+    };
 
     this.setState({
-      tasks,
+      tasks: [...tasks, createdTask],
       counter: ++id,
     });
   };
