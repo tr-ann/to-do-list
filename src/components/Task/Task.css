@@ -1,0 +1,39 @@
+.task {
+  list-style-type: none;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.task-body {
+  display: block;
+  position: relative;
+  transition: transform 0.1s;
+  padding: 0 10px 0 0;
+}
+
+.task-body:hover {
+  background-color: #363d4d;
+}
+
+.task-body:active {
+  transform: scale(0.95);
+}
+
+.task-body::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 20%;
+  height: 70%;
+  width: 1px;
+  background-color: white;
+}
+
+.task_done {
+  text-decoration: line-through;
+  color: antiquewhite;
+}
+
+.task__switch {
+  margin-right: 15px;
+}
