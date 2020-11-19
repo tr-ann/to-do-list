@@ -2,7 +2,6 @@ import React from 'react';
 import classNames from 'classnames';
 import './Input.css';
 
-// eslint-disable-next-line object-curly-newline
 const Input = ({ classNames: classes, placeholder, onChange, value }) => {
   const inputClass = classNames('input', classes);
 
