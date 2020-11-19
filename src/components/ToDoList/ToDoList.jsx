@@ -1,95 +1,67 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 import Task from '../Task/Task';
+import * as TaskActions from '../../store/actions/tasksActions';
 import './ToDoList.css';
+import tasksListReducer from '../../store/reducers/tasksList';
 
 class ToDoList extends React.Component {
   constructor(props) {
     super(props);
 
-    const tasks = [
-      { id: 1, title: 'task 1', isDone: false },
-      { id: 2, title: 'task 2', isDone: false },
-      { id: 3, title: 'task 3', isDone: false },
-      { id: 4, title: 'task 4', isDone: false },
-    ];
-
     this.state = {
-      tasks,
-      editedTask: '',
-      counter: 5,
+      title: '',
     };
   }
 
-  onTaskStateChange = (id) => {
-    const { tasks } = this.state;
-
-    const updatedTasks = tasks.map((task) => {
-      if (task.id === id) {
-        return { ...task, isDone: !task.isDone };
-      }
-      return task;
-    });
-
-    updatedTasks.sort(this.sortByTaskState);
-
-    this.setState({ tasks: updatedTasks });
-  };
-
-  onTaskDelete = (id) => {
-    const { tasks } = this.state;
-    const updatedTasks = tasks.filter(({ id: taskId }) => taskId !== id);
-
-    this.setState({ tasks: updatedTasks });
-  };
-
   onTaskChange = (e) => {
-    this.setState({ editedTask: e.target.value });
+    this.setState({ title: e.target.value });
   };
 
   onTaskCreate = () => {
-    const { tasks, counter: id, editedTask } = this.state;
+    const { addTask } = this.props;
+    const { title } = this.state;
 
-    if (!editedTask) return;
+    addTask(title);
 
-    const createdTask = {
-      id,
-      title: editedTask,
-      isDone: false,
-    };
-    const newId = id + 1;
+    this.setState({ title: '' });
+  };
 
-    this.setState({
-      tasks: [...tasks, createdTask],
-      counter: newId,
-      editedTask: '',
-    });
+  onTaskStateChange = (id) => {
+    const { changeTaskState } = this.props;
+    changeTaskState(id);
+  };
+
+  onTaskDelete = (id) => {
+    const { deleteTask } = this.props;
+    deleteTask(id);
   };
 
   getTasksList = () => {
-    const { tasks } = this.state;
+    const { tasks: taskList } = this.props;
 
-    return tasks.map((item) => (
-      <Task
-        key={item.id}
-        task={item}
-        taskChanged={this.onTaskStateChange}
-        taskDeleted={this.onTaskDelete}
-      />
-    ));
+    return taskList.map((task) => {
+      return (
+        <Task
+          key={task.id}
+          task={task}
+          changeTask={this.onTaskStateChange}
+          deleteTask={this.onTaskDelete}
+        />
+      );
+    });
   };
 
-  sortByTaskState = (task1, task2) => Number(task1.isDone) - Number(task2.isDone);
-
   render() {
-    const { editedTask } = this.state;
+    const { title } = this.state;
 
     return (
       <div className="to-do-list">
         <h2 className="to-do-list__title">To Do List</h2>
         <div>
-          <Input placeholder="task title" onChange={this.onTaskChange} value={editedTask} />
+          <Input placeholder="task title" onChange={this.onTaskChange} value={title} />
           <Button success onClick={this.onTaskCreate} title="Save" />
         </div>
         <ul className="task-list">{this.getTasksList()}</ul>
@@ -98,4 +70,4 @@ class ToDoList extends React.Component {
   }
 }
 
-export default ToDoList;
+export default connect(tasksListReducer, TaskActions)(ToDoList);

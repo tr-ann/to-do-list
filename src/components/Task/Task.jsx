@@ -3,22 +3,22 @@ import classNames from 'classnames';
 import Button from '../Button/Button';
 import './Task.css';
 
-const Task = ({ task: { id, title, isDone }, taskDeleted, taskChanged }) => {
+const Task = ({ task: { id, title, isDone }, deleteTask, changeTask }) => {
   const handleChange = () => {
-    taskChanged(id);
+    changeTask(id);
   };
 
   const handleDelete = () => {
-    taskDeleted(id);
+    deleteTask(id);
   };
 
   const titleClass = classNames({ task_done: isDone });
 
   return (
     <li className="task">
-      <label htmlFor="task" className="task-body">
+      <label htmlFor={`task#${id}`} className="task-body">
         <input
-          id="task"
+          id={`task#${id}`}
           type="checkbox"
           className="task__switch"
           checked={isDone}
