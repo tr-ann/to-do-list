@@ -1,11 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 import Task from '../Task/Task';
-import * as TaskActions from '../../store/actions/tasksActions';
 import './ToDoList.css';
-import tasksListReducer from '../../store/reducers/tasksList';
 
 class ToDoList extends React.Component {
   constructor(props) {
@@ -21,22 +18,22 @@ class ToDoList extends React.Component {
   };
 
   onTaskCreate = () => {
-    const { addTask } = this.props;
+    const { doAddTask } = this.props;
     const { title } = this.state;
 
-    addTask(title);
+    doAddTask(title);
 
     this.setState({ title: '' });
   };
 
   onTaskStateChange = (id) => {
-    const { changeTaskState } = this.props;
-    changeTaskState(id);
+    const { doChangeTaskState } = this.props;
+    doChangeTaskState(id);
   };
 
   onTaskDelete = (id) => {
-    const { deleteTask } = this.props;
-    deleteTask(id);
+    const { doDeleteTask } = this.props;
+    doDeleteTask(id);
   };
 
   getTasksList = () => {
@@ -69,5 +66,4 @@ class ToDoList extends React.Component {
     );
   }
 }
-
-export default connect(tasksListReducer, TaskActions)(ToDoList);
+export default ToDoList;

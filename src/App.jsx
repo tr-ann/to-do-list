@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import ToDoList from './components/ToDoList/ToDoList';
+import { ToDoList } from './components/ToDoList';
 import store from './store/store';
 import './App.css';
 
