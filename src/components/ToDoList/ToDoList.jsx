@@ -1,14 +1,14 @@
 import React from 'react';
-import { Button } from '../Button/Button';
-import { Input } from '../Input/Input';
-import { Task } from '../Task/Task';
+import Button from '../Button/Button';
+import Input from '../Input/Input';
+import Task from '../Task/Task';
 import './ToDoList.css';
 
-export class ToDoList extends React.Component {
+class ToDoList extends React.Component {
   constructor(props) {
     super(props);
 
-    let tasks = [
+    const tasks = [
       { id: 1, title: 'task 1', isDone: false },
       { id: 2, title: 'task 2', isDone: false },
       { id: 3, title: 'task 3', isDone: false },
@@ -20,10 +20,6 @@ export class ToDoList extends React.Component {
       editedTask: '',
       counter: 5,
     };
-  }
-
-  sortByTaskState(task1, task2) {
-    return Number(task1.isDone) - Number(task2.isDone);
   }
 
   onTaskStateChange = (id) => {
@@ -53,18 +49,20 @@ export class ToDoList extends React.Component {
   };
 
   onTaskCreate = () => {
-    if (!this.state.editedTask) return;
+    const { tasks, counter: id, editedTask } = this.state;
 
-    let { tasks, counter: id, editedTask } = this.state;
+    if (!editedTask) return;
+
     const createdTask = {
       id,
       title: editedTask,
       isDone: false,
     };
+    const newId = id + 1;
 
     this.setState({
       tasks: [...tasks, createdTask],
-      counter: ++id,
+      counter: newId,
       editedTask: '',
     });
   };
@@ -72,17 +70,17 @@ export class ToDoList extends React.Component {
   getTasksList = () => {
     const { tasks } = this.state;
 
-    return tasks.map((item) => {
-      return (
-        <Task
-          key={item.id}
-          task={item}
-          taskChanged={this.onTaskStateChange}
-          taskDeleted={this.onTaskDelete}
-        />
-      );
-    });
+    return tasks.map((item) => (
+      <Task
+        key={item.id}
+        task={item}
+        taskChanged={this.onTaskStateChange}
+        taskDeleted={this.onTaskDelete}
+      />
+    ));
   };
+
+  sortByTaskState = (task1, task2) => Number(task1.isDone) - Number(task2.isDone);
 
   render() {
     const { editedTask } = this.state;
@@ -99,3 +97,5 @@ export class ToDoList extends React.Component {
     );
   }
 }
+
+export default ToDoList;

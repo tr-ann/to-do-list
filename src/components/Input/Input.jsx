@@ -1,8 +1,10 @@
+import React from 'react';
 import classNames from 'classnames';
 import './Input.css';
 
-export const Input = ({ classNames: classes, placeholder, onChange, value }) => {
-  let inputClass = classNames('input', classes);
+// eslint-disable-next-line object-curly-newline
+const Input = ({ classNames: classes, placeholder, onChange, value }) => {
+  const inputClass = classNames('input', classes);
 
   return (
     <input
@@ -14,3 +16,5 @@ export const Input = ({ classNames: classes, placeholder, onChange, value }) => 
     />
   );
 };
+
+export default Input;

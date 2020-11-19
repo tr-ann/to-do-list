@@ -1,16 +1,20 @@
+import React from 'react';
 import './Button.css';
 import classNames from 'classnames';
 
-export const Button = ({ success, warning, danger, onClick, title }) => {
-  let classes = classNames('button', {
+// eslint-disable-next-line object-curly-newline
+const Button = ({ success, warning, danger, onClick, title }) => {
+  const classes = classNames('button', {
     button_success: success,
     button_warning: warning,
     button_danger: danger,
   });
 
   return (
-    <button className={classes} onClick={onClick}>
+    <button type="button" className={classes} onClick={onClick}>
       {title}
     </button>
   );
 };
+
+export default Button;
