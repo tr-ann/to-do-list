@@ -6,7 +6,6 @@ import {
   GET_TASKS_STARTED,
   GET_TASKS_SUCCESS,
 } from '../actionTypes';
-import sortByState from '../../utils/sortTaskByState';
 
 const initialState = {
   tasks: [],
@@ -43,7 +42,6 @@ export default function tasks(state = initialState, action) {
       const { tasks: taskList } = state;
 
       const updatedTaskList = [...taskList, newTask];
-      updatedTaskList.sort(sortByState);
 
       return {
         ...state,
@@ -61,8 +59,6 @@ export default function tasks(state = initialState, action) {
         }
         return task;
       });
-
-      updatedTasks.sort(sortByState);
 
       return { ...state, tasks: updatedTasks };
     }
