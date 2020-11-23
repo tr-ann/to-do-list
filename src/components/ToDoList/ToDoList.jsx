@@ -1,4 +1,5 @@
 import React from 'react';
+import Loader from 'react-loader-spinner';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 import Task from '../Task/Task';
@@ -10,7 +11,13 @@ class ToDoList extends React.Component {
 
     this.state = {
       title: '',
+      counter: 5,
     };
+  }
+
+  componentDidMount() {
+    const { doGetTasks } = this.props;
+    doGetTasks();
   }
 
   onTaskChange = (e) => {
@@ -19,11 +26,20 @@ class ToDoList extends React.Component {
 
   onTaskCreate = () => {
     const { doAddTask } = this.props;
-    const { title } = this.state;
+    const { counter: id, title } = this.state;
 
-    doAddTask(title);
+    if (!title) return;
 
-    this.setState({ title: '' });
+    const newTask = {
+      id,
+      title,
+      isDone: false,
+    };
+    const newId = id + 1;
+
+    this.setState({ counter: newId, title: '' });
+
+    doAddTask(newTask);
   };
 
   onTaskStateChange = (id) => {
@@ -53,15 +69,22 @@ class ToDoList extends React.Component {
 
   render() {
     const { title } = this.state;
+    const { loading } = this.props;
 
     return (
       <div className="to-do-list">
         <h2 className="to-do-list__title">To Do List</h2>
-        <div>
-          <Input placeholder="task title" onChange={this.onTaskChange} value={title} />
-          <Button success onClick={this.onTaskCreate} title="Save" />
-        </div>
-        <ul className="task-list">{this.getTasksList()}</ul>
+        {loading ? (
+          <Loader type="Oval" color="#00BFFF" height={40} width={40} />
+        ) : (
+          <>
+            <div>
+              <Input placeholder="task title" onChange={this.onTaskChange} value={title} />
+              <Button success onClick={this.onTaskCreate} title="Save" />
+            </div>
+            <ul className="task-list">{this.getTasksList()}</ul>
+          </>
+        )}
       </div>
     );
   }

@@ -1,40 +1,57 @@
-import * as types from '../actionTypes';
+import {
+  ADD_TASK,
+  CHANGE_TASK_STATE,
+  DELETE_TASK,
+  GET_TASKS_FAILURE,
+  GET_TASKS_STARTED,
+  GET_TASKS_SUCCESS,
+} from '../actionTypes';
 import sortByState from '../../utils/sortTaskByState';
 
 const initialState = {
-  tasks: [
-    { id: 1, title: 'task 1', isDone: false },
-    { id: 2, title: 'task 2', isDone: false },
-    { id: 3, title: 'task 3', isDone: false },
-    { id: 4, title: 'task 4', isDone: false },
-  ],
-  counter: 5,
+  tasks: [],
+  loading: false,
+  error: null,
 };
 
 export default function tasks(state = initialState, action) {
   switch (action.type) {
-    case types.ADD_TASK: {
-      const { title } = action;
-      const { tasks: taskList, counter: id } = state;
-      if (!title) return state;
-
-      const createdTask = {
-        id,
-        title,
-        isDone: false,
+    case GET_TASKS_STARTED: {
+      return {
+        ...state,
+        loading: true,
       };
-      const newId = id + 1;
+    }
+    case GET_TASKS_SUCCESS: {
+      return {
+        ...state,
+        tasks: action.payload.tasks,
+        loading: false,
+      };
+    }
+    case GET_TASKS_FAILURE: {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.error,
+      };
+    }
+    case ADD_TASK: {
+      const {
+        payload: { newTask },
+      } = action;
+      const { tasks: taskList } = state;
 
-      const updatedTaskList = [...taskList, createdTask];
+      const updatedTaskList = [...taskList, newTask];
       updatedTaskList.sort(sortByState);
 
       return {
+        ...state,
         tasks: updatedTaskList,
-        counter: newId,
       };
     }
 
-    case types.CHANGE_TASK_STATE: {
+    case CHANGE_TASK_STATE: {
       const { tasks: taskList } = state;
       const { id } = action;
 
@@ -50,7 +67,7 @@ export default function tasks(state = initialState, action) {
       return { ...state, tasks: updatedTasks };
     }
 
-    case types.DELETE_TASK: {
+    case DELETE_TASK: {
       const { tasks: taskList } = state;
       const { id } = action;
 

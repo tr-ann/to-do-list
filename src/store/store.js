@@ -1,6 +1,7 @@
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
+import thunk from 'redux-thunk';
 import taskReducer from './reducers/tasksList';
 
-const store = createStore(taskReducer);
+const store = createStore(taskReducer, applyMiddleware(thunk));
 
 export default store;
