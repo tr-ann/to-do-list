@@ -75,7 +75,9 @@ class ToDoList extends React.Component {
       <div className="to-do-list">
         <h2 className="to-do-list__title">To Do List</h2>
         {isLoading ? (
-          <Loader type="Oval" color="#00BFFF" height={40} width={40} />
+          <div className="list-loader-container">
+            <Loader type="Oval" color="#00BFFF" height={40} width={40} />
+          </div>
         ) : (
           <>
             <div className="new-task-container">
