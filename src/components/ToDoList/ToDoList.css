@@ -2,6 +2,14 @@
   margin: 0 40px;
 }
 
+.to-do-list__title {
+  text-align: center;
+}
+
 .task-list {
   padding-left: 0;
+}
+
+.new-task-container {
+  display: flex;
 }

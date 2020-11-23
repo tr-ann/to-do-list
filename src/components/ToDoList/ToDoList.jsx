@@ -78,7 +78,7 @@ class ToDoList extends React.Component {
           <Loader type="Oval" color="#00BFFF" height={40} width={40} />
         ) : (
           <>
-            <div>
+            <div className="new-task-container">
               <Input placeholder="task title" onChange={this.onTaskChange} value={title} />
               <Button success onClick={this.onTaskCreate} title="Save" />
             </div>
