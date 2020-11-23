@@ -69,12 +69,12 @@ class ToDoList extends React.Component {
 
   render() {
     const { title } = this.state;
-    const { loading } = this.props;
+    const { isLoading } = this.props;
 
     return (
       <div className="to-do-list">
         <h2 className="to-do-list__title">To Do List</h2>
-        {loading ? (
+        {isLoading ? (
           <Loader type="Oval" color="#00BFFF" height={40} width={40} />
         ) : (
           <>

@@ -10,7 +10,7 @@ import sortByState from '../../utils/sortTaskByState';
 
 const initialState = {
   tasks: [],
-  loading: false,
+  isLoading: false,
   error: null,
 };
 
@@ -19,20 +19,20 @@ export default function tasks(state = initialState, action) {
     case GET_TASKS_STARTED: {
       return {
         ...state,
-        loading: true,
+        isLoading: true,
       };
     }
     case GET_TASKS_SUCCESS: {
       return {
         ...state,
         tasks: action.payload.tasks,
-        loading: false,
+        isLoading: false,
       };
     }
     case GET_TASKS_FAILURE: {
       return {
         ...state,
-        loading: false,
+        isLoading: false,
         error: action.payload.error,
       };
     }
