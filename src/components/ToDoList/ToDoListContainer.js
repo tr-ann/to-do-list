@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { addTask, changeTaskState, deleteTask, getTasks } from '../../store/actions/tasksActions';
-import { selectTasks, selectError, selectLoadingState } from '../../store/selectors/tasks';
+import { addTask, changeTaskState, deleteTask, getTasks } from '../../redux/actions/tasksActions';
+import { selectTasks, selectError, selectLoadingState } from '../../redux/selectors/tasks';
 import ToDoList from './ToDoList';
 
 const mapStateToProps = (state) => ({

@@ -1,0 +1,6 @@
+export const GET_TASKS_STARTED = 'GET_TASKS_STARTED';
+export const GET_TASKS_SUCCESS = 'GET_TASKS_SUCCESS';
+export const GET_TASKS_FAILURE = 'GET_TASKS_FAILURE';
+export const ADD_TASK = 'ADD_TASK';
+export const CHANGE_TASK_STATE = 'CHANGE_TASK_STATE';
+export const DELETE_TASK = 'DELETE_TASK';
